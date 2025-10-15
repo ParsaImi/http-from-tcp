@@ -17,6 +17,7 @@ func getLinesChannel(f io.ReadCloser) <-chan string {
 			data := make([]byte, 8)
 			n, err := f.Read(data)
 			if err != nil {
+				fmt.Println("Hey broth we got error")
 				break
 			}
 			data = data[:n]

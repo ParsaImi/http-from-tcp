@@ -1,0 +1,2 @@
+read http line from a file to stset ddddddddddd ddddddddddddd 
+http is great! dddddddddddddd dddddddddddddd ddddddddddd
