@@ -11,7 +11,7 @@ import (
 
 func main() {
 	UDPAddress, err := net.ResolveUDPAddr("udp", "localhost:42069")
-	conn, err := net.DialUDP("udp", nil, nil)
+	conn, err := net.DialUDP("udp", UDPAddress, UDPAddress)
 	if err != nil {
 		fmt.Println("error while UDP")
 	}
