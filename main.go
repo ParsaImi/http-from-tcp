@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 )
@@ -10,13 +11,22 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	line := ""
+	storage := make([]byte, 8)
 	for {
-		storage := make([]byte, 8)
 		n, err := f.Read(storage)
 		if err != nil {
 			fmt.Println(err)
 			break
 		}
-		fmt.Printf("read: %s\n", string(storage[:n]))
+		data := storage[:n]
+		if i := bytes.IndexByte(data, '\n'); i != -1 {
+			line += string(storage[:i])
+			data = data[i+1:]
+			fmt.Printf("read: %s\n", line)
+			line = ""
+		}
+		line += string(data)
 	}
 }
