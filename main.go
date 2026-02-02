@@ -4,18 +4,23 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"os"
+	"net"
 )
 
 func main() {
-	f, err := os.Open("message.txt")
+	listener, err := net.Listen("tcp", ":42069")
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	lines := getLinesFromReader(f)
-	for line := range lines {
-		fmt.Println(line)
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			fmt.Println(err)
+		}
+		lines := getLinesFromReader(conn)
+		for line := range lines {
+			fmt.Println(line)
+		}
 	}
 }
 
